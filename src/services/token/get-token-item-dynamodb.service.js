@@ -6,7 +6,7 @@ exports.getTokenFromDataBase = async function (token) {
         TableName: process.env.TokenTableName,
         ConsistentRead: false,
         Key: {
-            "token": {
+            "jwt_token": {
                 S: token
             }
         }
