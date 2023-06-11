@@ -8,12 +8,13 @@ exports.lambdaHandler = async (event, context, callback) => {
     if (errors.length > 0)
         return policyGeneratorService.generatePolicy('user', 'Deny', event.methodArn);
     try {
-        const dbItem = await getTokenItemDynamoDbService.getTokenFromDataBase(event.authorizationToken);
+        const token = event.authorizationToken.replace('Bearer ', '');
+        const dbItem = await getTokenItemDynamoDbService.getTokenFromDataBase(token);
         if (!dbItem.Item)
             return policyGeneratorService.generatePolicy('user', 'Deny', event.methodArn);
 
         console.log('verificando token');
-        if (verifyTokenService.verifyToken(event.authorizationToken))
+        if (verifyTokenService.verifyToken(token))
             return policyGeneratorService.generatePolicy('user', 'Allow', event.methodArn);
 
         return policyGeneratorService.generatePolicy('user', 'Deny', event.methodArn);
