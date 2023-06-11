@@ -6,7 +6,7 @@ Obrigado
 
 <hr/>
 
-# Escola de Software - Authorizer - Login Authorizer
+# Escola de Software - Authorizer - Lambda Authorizer
 
 This repository contains a lambda authorizer for permissions validation of the users logged on escola de software which is send a token to lambda in order to verify it. Therefore, contains the infrastructure template  and CI/CD.
 
