@@ -13,9 +13,6 @@ exports.lambdaHandler = async (event, context, callback) => {
         if (!dbItem.Item)
             return policyGeneratorService.generatePolicy('user', 'Deny', event.methodArn);
 
-        if (verifyTokenService.verifyToken(token))
-            return policyGeneratorService.generatePolicy('user', 'Allow', event.methodArn);
-
         return policyGeneratorService.generatePolicy('user', 'Deny', event.methodArn);
     }
     catch (error) {
