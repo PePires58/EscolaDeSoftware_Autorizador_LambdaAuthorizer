@@ -10,9 +10,9 @@ exports.validateTokenInputService = function (tokenInput) {
         else if (tokenInput.type !== 'TOKEN')
             errors.push('Tipo de autorização inválido');
 
-        if (!tokenInput.authorizationToken)
+        if (!tokenInput.Authorization)
             errors.push('Token de autorização é obrigatório');
-        else if (!tokenInput.authorizationToken.startsWith('Bearer '))
+        else if (!tokenInput.Authorization.startsWith('Bearer '))
             errors.push('Token de autorização é inválido');
 
         if (!tokenInput.methodArn)
