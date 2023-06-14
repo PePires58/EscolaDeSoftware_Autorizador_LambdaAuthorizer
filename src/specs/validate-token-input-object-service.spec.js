@@ -34,7 +34,7 @@ describe('Validate token input object service tests', function () {
     it('Should have an error "Token de autorização é obrigatório"', function () {
         const tokenObjectInput = {
             type: 'TOKEN',
-            Authorization: ''
+            authorizationToken: ''
         }
 
         const errors = validateTokenInputObjectService.validateTokenInputService(tokenObjectInput);
@@ -46,7 +46,7 @@ describe('Validate token input object service tests', function () {
     it('Should have an error "Token de autorização é inválido"', function () {
         const tokenObjectInput = {
             type: 'TOKEN',
-            Authorization: 'TipoErrado [token]'
+            authorizationToken: 'TipoErrado [token]'
         }
 
         const errors = validateTokenInputObjectService.validateTokenInputService(tokenObjectInput);
@@ -58,7 +58,7 @@ describe('Validate token input object service tests', function () {
     it('Should have an error "ARN do método é obrigatório"', function () {
         const tokenObjectInput = {
             type: 'TOKEN',
-            Authorization: 'Bearer [token]'
+            authorizationToken: 'Bearer [token]'
         }
 
         const errors = validateTokenInputObjectService.validateTokenInputService(tokenObjectInput);
@@ -70,7 +70,7 @@ describe('Validate token input object service tests', function () {
     it('Should not have errors', function () {
         const tokenObjectInput = {
             type: 'TOKEN',
-            Authorization: 'Bearer [token]',
+            authorizationToken: 'Bearer [token]',
             methodArn: 'arn:aws:execute-api:{regionId}:{accountId}:{apiId}/{stage}/{httpVerb}/[{resource}'
         }
 
