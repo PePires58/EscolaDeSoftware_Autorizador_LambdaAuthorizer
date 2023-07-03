@@ -1,4 +1,4 @@
-exports.generatePolicy = function (principalId, effect, resource) {
+exports.generatePolicy = function (principalId, effect, resource, context) {
     return {
         principalId: principalId,
         policyDocument: {
@@ -10,6 +10,7 @@ exports.generatePolicy = function (principalId, effect, resource) {
                     Resource: resource
                 }
             ]
-        }
+        },
+        context: context
     };
 }

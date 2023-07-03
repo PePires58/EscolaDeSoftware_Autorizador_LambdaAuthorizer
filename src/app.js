@@ -10,9 +10,9 @@ exports.lambdaHandler = async (event, context, callback) => {
         const token = event.authorizationToken.replace('Bearer ', '');
         const dbItem = await getTokenItemDynamoDbService.getTokenFromDataBase(token);
         if (!dbItem.Item)
-            return policyGeneratorService.generatePolicy('user', 'Deny', event.methodArn);
+            return policyGeneratorService.generatePolicy('user', 'Deny', event.methodArn, {});
 
-        return policyGeneratorService.generatePolicy('user', 'Allow', event.methodArn);
+        return policyGeneratorService.generatePolicy('user', 'Allow', event.methodArn, { token });
     }
     catch (error) {
         console.log(error);
