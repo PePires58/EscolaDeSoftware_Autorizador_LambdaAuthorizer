@@ -1,7 +1,6 @@
 const validateTokenInputObjectService = require('./services/token/validate-token-input-object.service');
 const policyGeneratorService = require('./services/policy/generate-policy.service');
 const getTokenItemDynamoDbService = require('./services/token/get-token-item-dynamodb.service');
-const verifyTokenService = require('./services/token/verify-token.service');
 
 exports.lambdaHandler = async (event, context, callback) => {
     const errors = validateTokenInputObjectService.validateTokenInputService(event);
@@ -11,12 +10,9 @@ exports.lambdaHandler = async (event, context, callback) => {
         const token = event.authorizationToken.replace('Bearer ', '');
         const dbItem = await getTokenItemDynamoDbService.getTokenFromDataBase(token);
         if (!dbItem.Item)
-            return policyGeneratorService.generatePolicy('user', 'Deny', event.methodArn);
+            return policyGeneratorService.generatePolicy('user', 'Deny', event.methodArn, {});
 
-        if (verifyTokenService.verifyToken(token))
-            return policyGeneratorService.generatePolicy('user', 'Allow', event.methodArn);
-
-        return policyGeneratorService.generatePolicy('user', 'Deny', event.methodArn);
+        return policyGeneratorService.generatePolicy('user', 'Allow', event.methodArn, { token });
     }
     catch (error) {
         console.log(error);
